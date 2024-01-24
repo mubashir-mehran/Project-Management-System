@@ -24,7 +24,6 @@ const projectValidator = yup.object({
     .date()
     // .required("Start date is required")
     .min(new Date(), "Start date must be in the future"),
-  image: yup.string().url("Invalid URL format for image"),
   techStacks: yup.array().of(yup.string().required("Tech stack is required")),
   githubRepoLink: yup.string().url("Invalid URL format for GitHub repo link"),
   liveUrl: yup.string().url("Invalid URL format for live URL"),

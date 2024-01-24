@@ -3,7 +3,7 @@ const { getJwtToken } = require("../helpers/jwtServices");
 const { projectValidator } = require("../helpers/validators");
 const ProjectModel = require("../models/Project.Model");
 
-// To create a user
+// To create a project
 const addProject = async (projectBody) => {
   await projectValidator.validate(projectBody);
 
@@ -18,7 +18,7 @@ const addProject = async (projectBody) => {
   return await ProjectModel.create(projectBody);
 };
 
-// To create a user
+// To get all projects
 const getAllProjects = async ({
   sortByName, // "az" "za"
   sortByDate, // newest oldest
@@ -66,6 +66,19 @@ const getAllProjects = async ({
   return projects;
 };
 
-const ProjectController = { addProject, getAllProjects };
+// To update project
+const updateProject = async (id, projectBody) => {
+  const response = await ProjectModel.findOneAndUpdate(
+    {
+      _id: id,
+    },
+    {
+      ...projectBody,
+    }
+  );
+  return response;
+};
+
+const ProjectController = { addProject, getAllProjects, updateProject };
 
 module.exports = ProjectController;

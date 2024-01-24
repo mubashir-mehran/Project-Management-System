@@ -3,7 +3,7 @@ import { Button, Row, Col } from "antd";
 import "../styles/Navbar.css";
 import { useNavigate } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ activeTab, setActiveTab }) => {
   const navigateTo = useNavigate();
 
   return (
@@ -23,13 +23,34 @@ const NavBar = () => {
         <Col lg={8} className="nav_option">
           <ul>
             <li>
-              <a href="/dashboard/projects/all">Current Projects</a>
+              <a href="/dashboard/projects/all">
+                <button
+                  className="nav_btn"
+                  onClick={() => setActiveTab("current")}
+                >
+                  Current Projects
+                </button>
+              </a>
             </li>
             <li>
-              <a href="/dashboard/projects/archived">Archived Projects</a>
+              <a href="/dashboard/projects/archived">
+                <button
+                  className="nav_btn"
+                  onClick={() => setActiveTab("archived")}
+                >
+                  Archived Projects
+                </button>
+              </a>
             </li>
             <li>
-              <a href="/dashboard/projects/completed">Completed Projects</a>
+              <a href="/dashboard/projects/completed">
+                <button
+                  className="nav_btn"
+                  onClick={() => setActiveTab("completed")}
+                >
+                  Completed Projects
+                </button>
+              </a>
             </li>
           </ul>
         </Col>

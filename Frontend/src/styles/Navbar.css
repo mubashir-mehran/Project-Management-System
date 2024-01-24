@@ -31,9 +31,16 @@
   font-size: 15px;
   font-weight: 700px;
 }
-.nav_option ul li a:hover {
-  color: rgb(24, 45, 238);
+.nav_btn {
+  padding: 0px;
+  background: none;
+  color: white;
+  border: none;
+}
+.nav_btn:hover {
+  color: rgb(139, 148, 233);
   text-decoration: underline;
+  border: none;
 }
 .logout_btn {
   text-align: end;

@@ -21,7 +21,7 @@ const ProjectScreen = () => {
       <Row>
         <NavBar />
       </Row>
-      <Row style={{ marginTop: "60px" }}>
+      <Row>
         <ProjectsScreen />
       </Row>
     </Row>

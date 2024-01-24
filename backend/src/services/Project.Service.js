@@ -16,6 +16,7 @@ const addProject = async (req, res) => {
 // To get all projects
 const getAllProjects = async (req, res) => {
   try {
+    console.log(req.query);
     const response = await ProjectController.getAllProjects(req.query);
     globalServices.successResponse(res, response);
   } catch (error) {
@@ -46,13 +47,17 @@ const deleteProject = async (req, res) => {
 // To update a project
 const updateProject = async (req, res) => {
   try {
-    const response = await ProjectController.addProject(req.body);
+    const response = await ProjectController.updateProject(
+      req.query.id,
+      req.body
+    );
     globalServices.successResponse(res, response);
+    req;
   } catch (error) {
     globalServices.addStatusCodeWithError(error, res);
   }
 };
 
-const ProjectService = { addProject, getAllProjects };
+const ProjectService = { addProject, getAllProjects, updateProject };
 
 module.exports = ProjectService;

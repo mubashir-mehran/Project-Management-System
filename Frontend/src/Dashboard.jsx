@@ -18,6 +18,14 @@ import store from "./redux/store";
 const { Option } = Select;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { collection, addDoc } from "firebase/firestore";
+import {
+  getDownloadURL,
+  ref as storageRef,
+  uploadBytes,
+} from "firebase/storage";
+import { v4 } from "uuid";
+import axios from "axios";
 
 const formItemLayout = {
   labelCol: {
@@ -47,13 +55,35 @@ const AddProject = () => {
   const [gitlink, setGitlink] = useState("");
   const [url, setUrl] = useState("");
   const [type, SetType] = useState([]);
+  const [image, setImage] = useState(null);
 
-  const createProject = async (values) => {
+  const uploadImage = async (id) => {
     try {
-      const responce = await axiosInstance.post("/projects/add", {
-        ...values,
-        type: "archived",
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("id", id);
+
+      const responce = await axiosInstance.post("/projects/image", formData, {
+        headers: {
+          Authorization: id,
+        },
       });
+      console.log(responce);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createProject = (values) => {
+    try {
+      axiosInstance
+        .post("/projects/add", {
+          ...values,
+          type: "current",
+        })
+        .then((res) => uploadImage(res.data.response._id));
+
+      // uploadImage(data.responce._id);
       toast.success("Project Created successfully");
       console.log("Project Created", responce?.data);
     } catch (error) {
@@ -71,10 +101,6 @@ const AddProject = () => {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
-
-  const uploadImage = () => {
-    // Implement your logic for image upload
-  };
 
   return (
     <>
@@ -121,15 +147,26 @@ const AddProject = () => {
             </Form.Item>
 
             <Form.Item label="Image" name="image">
-              <Upload
+              <input
+                type="file"
+                name="file"
+                onChange={(event) => {
+                  setImage(event.target.files[0]);
+                }}
+              />
+              {/* <Upload
                 listType="picture-card"
                 showUploadList={false}
-                customRequest={uploadImage}
+                customRequest={({ file }) => uploadImage(file)}
                 beforeUpload={() => false}
-                onChange={(e) => setImages(e.target.value)}
+                onChange={(e) => alert(JSON.stringify(e))}
               >
-                {customUploadButton}
-              </Upload>
+                {images ? (
+                  <img src={images} alt="project" style={{ width: "100%" }} />
+                ) : (
+                  customUploadButton
+                )}
+              </Upload> */}
             </Form.Item>
 
             <Form.Item label="Tech Stacks" name="techStacks">

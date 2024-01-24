@@ -14,9 +14,6 @@ const ProjectSchema = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },
-  image: {
-    type: String,
-  },
   techStacks: {
     type: [String],
     required: true,
