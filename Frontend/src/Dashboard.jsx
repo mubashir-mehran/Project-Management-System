@@ -16,6 +16,8 @@ import "./styles/Dashboard.css";
 import { axiosInstance } from "../src/redux/axiosInstance";
 import store from "./redux/store";
 const { Option } = Select;
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const formItemLayout = {
   labelCol: {
@@ -52,6 +54,7 @@ const AddProject = () => {
         ...values,
         type: "archived",
       });
+      toast.success("Project Created successfully");
       console.log("Project Created", responce?.data);
     } catch (error) {
       console.log("Errror", error?.data);
@@ -164,6 +167,7 @@ const AddProject = () => {
           </Form>
         </Col>
       </Row>
+      <ToastContainer />
     </>
   );
 };

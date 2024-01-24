@@ -37,6 +37,7 @@ export const userLoginAction = createAsyncThunk(
       });
       return data.response;
     } catch (error) {
+      // console.log("error", error?.response?.data?.message);
       rejectWithValue(error);
     }
   }
@@ -74,6 +75,7 @@ const authSlice = createSlice({
       builder.addCase(userLoginAction.rejected, (state) => {
         state.loading = false;
         state.success = false;
+        state.error = true;
       });
   },
 });

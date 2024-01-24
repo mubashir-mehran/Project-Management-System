@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { registerUserAction } from "./redux/slices/authSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const { loading, userInfo, error, success } = useSelector(
@@ -24,26 +26,33 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(registerUserAction(formData));
-    console.log(formData);
-    setFormData({
-      fullName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
-    if (formData.password !== formData.confirmPassword) {
-      alert("Password mismatch");
-      // dispatch(registerUserAction(data));
+
+    try {
+      await dispatch(registerUserAction(formData));
+
+      toast.success("Account Created successfully");
+
+      setFormData({
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+
+      if (formData.password !== formData.confirmPassword) {
+        toast.error("Password mismatch");
+      }
+    } catch (error) {
+      toast.error("Error creating account. Please try again.");
+      console.error(error);
     }
-    formData.email = formData.email.toLowerCase();
   };
 
-  useEffect(() => {
-    if (success) navigate("/");
-  }, [navigate, success]);
+  // useEffect(() => {
+  //   if (success) navigate("/");
+  // }, [navigate, success]);
 
   return (
     <div className="Login_section">
@@ -56,9 +65,9 @@ const Signup = () => {
 
         <h3>Project Management System</h3>
       </div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          User Name:
+      <form className="login-form" onSubmit={handleSubmit}>
+        <label style={{ fontSize: "15px" }}>
+          UserName:
           <input
             type="text"
             name="fullName"
@@ -68,9 +77,10 @@ const Signup = () => {
           />
         </label>
         <br />
-        <label>
+        <label style={{ fontSize: "17px" }}>
           Email:
           <input
+            className="email_input"
             type="email"
             name="email"
             value={formData.email}
@@ -90,8 +100,8 @@ const Signup = () => {
           />
         </label>
         <br />
-        <label>
-          Confirm Password:
+        <label style={{ fontSize: "17px" }}>
+          Confirm :
           <input
             type="password"
             name="confirmPassword"
@@ -100,8 +110,14 @@ const Signup = () => {
             required
           />
         </label>
-        <button type="submit">Sign Up</button>
+        <div className="login_btn">
+          <button type="submit">Sign Up</button>
+        </div>
+        <div className="tooltip">
+          Already have an account? <a href="/">Signin</a>
+        </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };

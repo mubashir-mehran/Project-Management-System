@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import store from "./redux/store";
 import { userLoginAction } from "./redux/slices/authSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const { loading, error, userInfo, success } = useSelector(
@@ -27,21 +29,25 @@ const Login = () => {
     });
   };
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    dispatch(userLoginAction(loginData));
-    setLoginData({
-      email: "",
-      password: "",
-    });
-    console.log(loginData);
+    try {
+      await dispatch(userLoginAction(loginData));
+      toast.success("Login successful");
+      setLoginData({
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      toast.error("Wrong credentials. Try again");
+      console.error(error);
+    }
   };
   const navigate = useNavigate();
   useEffect(() => {
-    if (success) navigate("/dashboard");
-    // if (userInfo) {
-    //   navigate("/dashboard");
-    // }
+    setTimeout(() => {
+      if (success) navigate("/dashboard");
+    }, 1000);
   }, [navigate, success]);
 
   return (
@@ -86,6 +92,7 @@ const Login = () => {
           Don't have an account? <a href="/register">Create</a>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };

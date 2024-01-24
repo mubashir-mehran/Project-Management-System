@@ -28,6 +28,7 @@
 .tooltip {
   text-align: start;
   padding-top: 15px;
+  padding-left: 10px;
 }
 .Login_section {
   border: 1px solid rgb(253, 252, 252);
@@ -50,4 +51,7 @@
 }
 .email_input {
   margin-left: 40px !important;
+}
+.check_box input {
+  margin: 7px !important;
 }
