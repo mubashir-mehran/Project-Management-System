@@ -1,31 +1,13 @@
 import React, { useState } from "react";
-import {
-  Form,
-  Input,
-  DatePicker,
-  Upload,
-  Button,
-  Row,
-  Col,
-  Select,
-} from "antd";
+import { Form, Input, DatePicker, Button, Row, Col, Select } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import NavBar from "./components/Navbar";
+import NavBar from "../components/Navbar";
 const { TextArea } = Input;
-import "./styles/Dashboard.css";
-import { axiosInstance } from "../src/redux/axiosInstance";
-import store from "./redux/store";
+import "../styles/Dashboard.css";
+import { axiosInstance } from "../redux/axiosInstance";
 const { Option } = Select;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { collection, addDoc } from "firebase/firestore";
-import {
-  getDownloadURL,
-  ref as storageRef,
-  uploadBytes,
-} from "firebase/storage";
-import { v4 } from "uuid";
-import axios from "axios";
 
 const formItemLayout = {
   labelCol: {
@@ -46,7 +28,7 @@ const formItemLayout = {
   },
 };
 
-const AddProject = () => {
+const Dashboard = () => {
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState({});
@@ -154,19 +136,6 @@ const AddProject = () => {
                   setImage(event.target.files[0]);
                 }}
               />
-              {/* <Upload
-                listType="picture-card"
-                showUploadList={false}
-                customRequest={({ file }) => uploadImage(file)}
-                beforeUpload={() => false}
-                onChange={(e) => alert(JSON.stringify(e))}
-              >
-                {images ? (
-                  <img src={images} alt="project" style={{ width: "100%" }} />
-                ) : (
-                  customUploadButton
-                )}
-              </Upload> */}
             </Form.Item>
 
             <Form.Item label="Tech Stacks" name="techStacks">
@@ -209,4 +178,4 @@ const AddProject = () => {
   );
 };
 
-export default AddProject;
+export default Dashboard;

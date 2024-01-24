@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import "./styles/Login.css";
+import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import store from "./redux/store";
-import { userLoginAction } from "./redux/slices/authSlice";
+import store from "../redux/store";
+import { userLoginAction } from "../redux/slices/authSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
