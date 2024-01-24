@@ -1,0 +1,19 @@
+.project_card {
+  box-shadow: 2px 2px 10px 0px rgba(150, 148, 148, 0.5);
+}
+.project_card h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+.project_card p {
+  font-size: 18px;
+  font-weight: 500;
+}
+.project_tags {
+  font-size: 16px;
+  font-weight: 500;
+}
+.project_url {
+  font-size: 15px;
+  font-weight: 500;
+}
